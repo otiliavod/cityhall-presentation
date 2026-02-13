@@ -1,0 +1,29 @@
+<button
+  type="button"
+  class="timeline-item"
+  [class.timeline-item--expanded]="expanded"
+  (click)="toggle.emit()"
+>
+  <div class="timeline-item__year">{{ item.year }}</div>
+
+  <div class="timeline-item__main">
+    <div class="timeline-item__top">
+      <h3 class="timeline-item__title">{{ item.title }}</h3>
+
+      <span class="timeline-item__icon" aria-hidden="true">
+        @if (expanded) { <i class="pi pi-chevron-up"></i> }
+        @else { <i class="pi pi-chevron-down"></i> }
+      </span>
+    </div>
+
+    @if (expanded) {
+      <p class="timeline-item__desc">{{ item.description }}</p>
+
+      @if (item.imageUrl) {
+        <div class="timeline-item__media">
+          <img [src]="item.imageUrl" [alt]="item.title" loading="lazy" />
+        </div>
+      }
+    }
+  </div>
+</button>

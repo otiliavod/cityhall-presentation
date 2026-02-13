@@ -1,0 +1,128 @@
+<section id="contact" class="contact">
+  <div class="contact__container">
+    <header class="contact__header">
+      <h2 class="contact__title">{{ content.title }}</h2>
+      <div class="contact__underline"></div>
+      <p class="contact__subtitle">{{ content.subtitle }}</p>
+    </header>
+
+    <div class="contact__grid">
+      <!-- LEFT -->
+      <div class="contact__left">
+        <div class="contactCard contactCard--soft">
+          <h3 class="contactCard__title">{{ content.infoTitle }}</h3>
+
+          <div class="contactList">
+            @for (item of content.items; track item.title) {
+              <div class="contactList__row">
+                <div class="contactList__icon">
+                  <i class="pi" [ngClass]="item.icon"></i>
+                </div>
+
+                <div class="contactList__text">
+                  <div class="contactList__label">{{ item.title }}</div>
+                  @for (line of item.lines; track line) {
+                    <div class="contactList__value">{{ line }}</div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="contactCard contactCard--yellow">
+          <h3 class="contactCard__title">{{ content.publicRelations.title }}</h3>
+          <p class="contactCard__p">{{ content.publicRelations.text }}</p>
+
+          @if (content.publicRelations.note) {
+            <p class="contactCard__note">{{ content.publicRelations.note }}</p>
+          }
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="contact__right">
+        <div class="contactCard contactCard--plain">
+          <h3 class="contactCard__title">{{ content.formTitle }}</h3>
+
+          <!-- status messages -->
+          @if (sent) {
+            <div class="form__status form__status--success">
+              Mesajul a fost trimis cu succes. Vă mulțumim!
+            </div>
+          }
+
+          @if (errorMsg) {
+            <div class="form__status form__status--error">
+              {{ errorMsg }}
+            </div>
+          }
+
+          <form class="form" (ngSubmit)="submit()">
+            <!-- Honeypot (must stay empty) -->
+            <input
+              type="text"
+              name="company"
+              [(ngModel)]="form.company"
+              style="display:none"
+              tabindex="-1"
+              autocomplete="off"
+            />
+
+            <label class="form__label">
+              Nume Complet <span class="form__req">*</span>
+            </label>
+            <input
+              class="form__input"
+              type="text"
+              placeholder="Introduceți numele dvs."
+              name="name"
+              [(ngModel)]="form.name"
+              required
+            />
+
+            <label class="form__label">
+              Email <span class="form__req">*</span>
+            </label>
+            <input
+              class="form__input"
+              type="email"
+              placeholder="email@exemplu.ro"
+              name="email"
+              [(ngModel)]="form.email"
+              required
+            />
+
+            <label class="form__label">
+              Subiect <span class="form__req">*</span>
+            </label>
+            <input
+              class="form__input"
+              type="text"
+              placeholder="Subiectul mesajului"
+              name="subject"
+              [(ngModel)]="form.subject"
+              required
+            />
+
+            <label class="form__label">
+              Mesaj <span class="form__req">*</span>
+            </label>
+            <textarea
+              class="form__textarea"
+              rows="6"
+              placeholder="Scrieți mesajul dvs. aici..."
+              name="message"
+              [(ngModel)]="form.message"
+              required
+            ></textarea>
+
+            <button type="submit" class="form__submit" [disabled]="sending">
+              @if (sending) { Se trimite... } @else { {{ content.submitLabel }} }
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

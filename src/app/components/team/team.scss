@@ -1,0 +1,64 @@
+.team {
+  padding: 6rem 1rem;
+  background: #fffaf0; /* same warm background as About */
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  &__title {
+    margin: 0 0 0.75rem;
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    font-weight: 800;
+    font-size: clamp(2.4rem, 3.8vw, 3.4rem);
+    color: #0b2a6f;
+  }
+
+  &__accent {
+    width: 5.5rem;
+    height: 0.25rem;
+    margin: 0 auto 1.25rem;
+    border-radius: 999px;
+    background: #f59e0b;
+  }
+
+  &__subtitle {
+    margin: 0 auto;
+    max-width: 52rem;
+    color: #6b7280;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  &__leader {
+    display: grid;
+    place-items: center;
+    margin: 0 auto 3rem;
+    max-width: 980px; /* matches screenshot spacing */
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 768px) {
+  .team__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .team__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,52 @@
+<nav class="nav" [class.nav--scrolled]="isScrolled">
+  <p-toolbar class="nav__toolbar">
+    <div class="p-toolbar-group-start">
+      <button
+        type="button"
+        class="nav__brand"
+        (click)="scrollToSection('hero')"
+        aria-label="Mergi la Acasă"
+      >
+        Primăria Comunei
+      </button>
+    </div>
+
+    <div class="p-toolbar-group-end nav__desktop">
+      @for (item of navItems; track item.id) {
+        <button
+          type="button"
+          class="nav__link"
+          (click)="scrollToSection(item.id)"
+        >
+          {{ item.label }}
+        </button>
+      }
+    </div>
+
+    <div class="p-toolbar-group-end nav__mobile">
+      <button
+        pButton
+        type="button"
+        [icon]="isMobileMenuOpen ? 'pi pi-times' : 'pi pi-bars'"
+        severity="secondary"
+        text="true"
+        (click)="toggleMobileMenu()"
+        aria-label="Meniu"
+      ></button>
+    </div>
+  </p-toolbar>
+
+  @if (isMobileMenuOpen) {
+    <div class="nav__mobileMenu">
+      @for (item of navItems; track item.id) {
+        <button
+          type="button"
+          class="nav__mobileLink"
+          (click)="scrollToSection(item.id)"
+        >
+          {{ item.label }}
+        </button>
+      }
+    </div>
+  }
+</nav>

@@ -1,0 +1,115 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+
+  /* HERO STATE (default): transparent, no shadow */
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+
+  transition: background-color 200ms ease, box-shadow 200ms ease, backdrop-filter 200ms ease;
+
+  &__toolbar {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 0.9rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* When user scrolls down: white bar + blur + shadow */
+  &--scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+  }
+
+  &__brand {
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #1e3a8a;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &__desktop {
+    display: none;
+    gap: 1.75rem;
+    align-items: center;
+  }
+
+  /* Desktop links */
+  &__link {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    color: #1f2937; /* slightly darker on hero */
+    font-weight: 600;
+    padding: 0.4rem 0.15rem;
+
+    transition: color 150ms ease, opacity 150ms ease;
+
+    &:hover {
+      color: #1e3a8a;
+    }
+  }
+
+  /* When scrolled, links become a touch more muted like reference */
+  &--scrolled {
+    .nav__link {
+      color: #374151;
+
+      &:hover {
+        color: #1e3a8a;
+      }
+    }
+  }
+
+  &__mobile {
+    display: flex;
+  }
+
+  &__mobileMenu {
+    padding: 0.5rem 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.98);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    display: grid;
+    gap: 0.25rem;
+
+    /* small shadow so it feels attached */
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  &__mobileLink {
+    border: 0;
+    background: transparent;
+    text-align: left;
+    padding: 0.8rem 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: #374151;
+
+    &:hover {
+      color: #1e3a8a;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .nav {
+    &__desktop {
+      display: flex;
+    }
+    &__mobile {
+      display: none;
+    }
+    &__mobileMenu {
+      display: none;
+    }
+  }
+}
