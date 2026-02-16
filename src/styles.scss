@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+.p-button {
+  border-radius: 0.5rem !important;
+  padding: 10px 20px 10px 20px !important;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  color: #1f2937;
+  line-height: 1.75;
+  background: #ffffff;
+}
+
+p {
+  margin: 0 0 1.25rem;
+  color: #374151; /* not too light */
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+a {
+  color: inherit;
+}

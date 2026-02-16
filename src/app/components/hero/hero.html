@@ -1,0 +1,48 @@
+<section id="hero" class="hero">
+  <div class="hero__bg">
+    <img
+      class="hero__bgImage"
+      [src]="heroImageUrl"
+      alt="Valea satului nostru"
+    />
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="hero__content">
+    <h1 class="hero__title">{{ content.title }}</h1>
+    <p class="hero__subtitle">{{ content.subtitle }}</p>
+
+    <div class="hero__actions">
+      <button
+        pButton
+        type="button"
+        class="hero-warning"
+        severity="primary"
+        (click)="goTo(content.primaryCtaTarget)"
+      >
+        {{ content.primaryCtaLabel }}
+      </button>
+
+      <button
+        pButton
+        type="button"
+        class="hero-secondary"
+        severity="secondary"
+        outlined="true"
+        (click)="goTo(content.secondaryCtaTarget)"
+      >
+        {{ content.secondaryCtaLabel }}
+      </button>
+
+    </div>
+  </div>
+
+  <button
+    class="hero__scrollHint"
+    type="button"
+    (click)="goTo('about')"
+    aria-label="Derulează către Despre"
+  >
+    <i class="pi pi-arrow-down"></i>
+  </button>
+</section>

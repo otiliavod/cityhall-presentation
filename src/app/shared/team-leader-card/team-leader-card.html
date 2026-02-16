@@ -1,0 +1,45 @@
+<article class="leader">
+  <div class="leader__imageWrap">
+    @if (leader.imageUrl) {
+      <img class="leader__image" [src]="leader.imageUrl" [alt]="leader.name" />
+    }
+  </div>
+
+  <div class="leader__content">
+    <h3 class="leader__name">{{ leader.name }}</h3>
+
+    @if (leader.accentLabel) {
+      <span class="leader__badge">{{ leader.accentLabel }}</span>
+    }
+
+    @if (leader.description) {
+      <p class="leader__desc">{{ leader.description }}</p>
+    }
+
+    <div class="leader__meta">
+      @if (leader.email) {
+        <div class="leader__metaRow">
+          <i class="pi pi-envelope leader__icon"></i>
+          <a
+            class="leader__link"
+            [href]="'mailto:' + leader.email + '?subject=Contact%20Primărie'"
+          >
+            {{ leader.email }}
+          </a>
+        </div>
+      }
+
+      @if (leader.phone) {
+        <div class="leader__metaRow">
+          <i class="pi pi-phone leader__icon"></i>
+          <a
+            class="leader__link"
+            [href]="'tel:' + (leader.phone ?? '').replaceAll(' ', '')"
+          >
+            {{ leader.phone }}
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</article>

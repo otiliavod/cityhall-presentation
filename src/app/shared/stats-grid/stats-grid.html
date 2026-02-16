@@ -1,0 +1,9 @@
+<div class="stats">
+  @for (item of items; track item.label) {
+    <div class="stats__card">
+      <i class="stats__icon" [class]="item.icon"></i>
+      <div class="stats__value">{{ item.value }}</div>
+      <div class="stats__label">{{ item.label }}</div>
+    </div>
+  }
+</div>
