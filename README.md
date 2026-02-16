@@ -1,59 +1,116 @@
-# CityhallPresentation
+# City Hall Presentation Website (Primărie) — Angular SSR + Vite
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+Demo / presentation website for a city hall (Primărie), built with **Angular 21** + **Vite** and **SSR enabled**.  
+Uses **fake/static content** that can later be replaced with real data or a CMS. Includes a simple **contact form backend** (Node.js + Express + Nodemailer).
 
-## Development server
+---
 
-To start a local development server, run:
+## Tech Stack
 
-```bash
-ng serve
-```
+### Frontend
+- **Angular 21** (Standalone components, no `.component` suffix)
+- **Vite** bundler
+- **SSR enabled**
+- Templates use **new Angular control flow** (`@if`, `@for`) — no `*ngIf`
+- Styling: **SCSS per component** + `styles.scss` global
+- Icons: **PrimeIcons** (no PrimeNG UI components, except Toolbar/Button usage in navigation/hero)
+- Animations: **NOT used**
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Backend (Contact API)
+- **Node.js + Express**
+- **Nodemailer** (Gmail SMTP via App Password)
+- Security basics:
+  - Server-side validation
+  - Honeypot field (`company`)
+  - `replyTo` set to citizen email
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Content & Architecture Principles
 
-```bash
-ng generate component component-name
-```
+- **Static content is centralized** in `src/app/data/site-content.ts`
+- Content contains **raw values only** (text, phone, email, images)
+- No behavior inside content files (no `mailto:`, no `tel:` strings stored there)
+- Behavior belongs in templates/components:
+  - `mailto:` and `tel:` links are built in HTML templates
+- Reusable components, clean separation:
+  - **content** vs **UI** vs **logic**
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Sections Implemented (Homepage)
 
-## Building
+### Hero
+- Background image in `/assets`
+- Blue gradient overlay
+- CTA buttons manually styled
+- Scroll hint arrow button
 
-To build the project run:
+### About
+- Light yellow background
+- Stats grid
+- Paragraphs
+- CTA **“Citește mai mult”** → `/despre`
 
-```bash
-ng build
-```
+### Achievements (Realizările Noastre)
+- Grid of cards + separate “Proiecte în desfășurare” list
+- CTA **“Citește mai mult”** → `/realizari`
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Team (Echipa)
+- Leader + members
+- Email & phone links (mailto + tel)
+- Email subject prefilled
 
-## Running unit tests
+### Contact
+- Two-column layout
+- Contact info + Public relations box
+- Contact form with sending/sent/error UI states
+- Honeypot field included (hidden)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Footer
+- Brand + quick links + contact
+- Quick links scroll to sections
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+### Frontend
+- Uses `ContactService` (`src/app/services/contact.service.ts`)
+- Calls:
+  - `POST http://localhost:3001/api/contact`
+- UI states:
+  - `sending`, `sent`, `errorMsg`
+- Honeypot field:
+  - `company` (must remain empty)
 
-For end-to-end (e2e) testing, run:
+### Backend API
+Located in `server/index.mjs`:
 
-```bash
-ng e2e
-```
+- `GET /api/health` → `{ ok: true }`
+- `POST /api/contact` → sends email via SMTP
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Validation rules (server-side):
+- `company` must be empty (honeypot)
+- name min length 2
+- valid email regex
+- subject min length 3
+- message min length 10
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Environment Variables (Backend)
+
+Create `server/.env`:
+
+```env
+PORT=3001
+CORS_ORIGIN=http://localhost:4200
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+
+SMTP_USER=your.email@gmail.com
+SMTP_PASS=GMAIL_APP_PASSWORD
+
+MAIL_TO=destination.email@gmail.com
+MAIL_FROM_NAME=Primăria Comunei (Contact)
