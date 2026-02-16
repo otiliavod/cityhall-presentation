@@ -5,7 +5,6 @@ publish = "dist/cityhall-presentation/browser"
 [build.environment]
 NETLIFY_SKIP_FRAMEWORK_DETECTION = "true"
 
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+# Force Netlify not to run any build plugins (including the auto Angular runtime)
+[[plugins]]
+package = "@netlify/plugin-skip"
