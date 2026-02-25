@@ -1,63 +1,120 @@
-# CityhallPresentation
+# City Hall Presentation Website (Primărie)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+Demo / presentation website for a Romanian city hall (Primărie), built with **Angular 21** and a small **Node.js + Express** backend for the contact form.
 
-## Hosting link
+The project is intentionally **content-driven**, using static / fake data for now, and structured so it can later be connected to a real backend or CMS.
 
-https://cityhall-presentation.netlify.app/
+---
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+### Frontend
+- Angular 21
+- Standalone components only (no NgModules)
+- Angular Router
+- New Angular control flow (`@if`, `@for`)
+- SCSS (per component + global `styles.scss`)
+- PrimeIcons (no heavy UI libraries)
+- No animations (by design)
 
-```bash
-ng serve
-```
+### Backend
+- Node.js
+- Express
+- Nodemailer (SMTP)
+- dotenv
+- Basic validation + honeypot protection
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Frontend Content Architecture
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- All static content lives in `src/app/data/site-content.ts`
+- Content files contain **only raw data**:
+  - text
+  - labels
+  - emails
+  - phone numbers
+  - image paths
+- No behavior inside content (no `mailto:` / `tel:` there)
+- Behavior (routing, scrolling, links) is handled in components/templates
+- Clear separation between:
+  - content
+  - UI
+  - logic
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Pages & Navigation
 
-```bash
-ng generate --help
-```
+### Homepage (`/`)
+Single-page layout composed of sections:
+- Hero
+- About
+- Achievements
+- Team
+- Contact
+- Footer
 
-## Building
+Navigation:
+- Fixed
+- Transparent over Hero
+- Turns solid on scroll
+- Scrolls to section IDs
+- From other pages, navigates back to `/` and then scrolls
 
-To build the project run:
+### Dedicated pages
+- `/despre` — extended About / history page
+- `/realizari` — achievements timeline page
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Achievements Page
+- Timeline layout
+- Year + title
+- Click to expand full description
+- No animations (intentional)
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Contact Form
 
-```bash
-ng test
-```
+### Frontend
+- Two-column layout
+- Contact info + public relations box
+- Form UI states:
+  - sending
+  - success
+  - error
 
-## Running end-to-end tests
+### Backend
+- Endpoint: `POST /api/contact`
+- Server-side validation
+- Honeypot field (`company`)
+- `replyTo` set to sender email
+- Environment-based configuration
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## Development
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Frontend
+npm install
+npm start
 
-## Additional Resources
+### Backend
+cd server
+npm install
+node index.mjs
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Production Build (Frontend)
+npm run build
+
+## Constraints & Intentions
+- No CMS (yet)
+- No authentication
+- No heavy UI libraries
+- Clean, readable, maintainable code
+- Designed to be easily extended or handed over later
+
+## License
+This project is intended as a demo / presentation project.
