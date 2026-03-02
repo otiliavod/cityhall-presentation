@@ -4,6 +4,8 @@ Demo / presentation website for a Romanian city hall (Primărie), built with **A
 
 The project is intentionally **content-driven**, using static / fake data for now, and structured so it can later be connected to a real backend or CMS.
 
+Liver server: https://cityhall-presentation.netlify.app/
+
 ---
 
 ## Tech Stack
